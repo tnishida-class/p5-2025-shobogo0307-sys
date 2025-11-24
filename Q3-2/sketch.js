@@ -25,12 +25,22 @@ function draw(){
   rect(0, groundY, width, height - groundY);
 
   // BLANK[1] キャラクターの左右移動
+  let speed = 5
+  if(keyIsDown("A".charCodeAt(0))){speed = speed * 2}
+  if(keyIsDown(LEFT_ARROW)){ x -= speed; }
+  if(keyIsDown(RIGHT_ARROW)){ x += speed; }
 
   // BLANK[2] 重力とジャンプ
+  if(keyIsDown(32)&& y >=groundY - size / 2){vy = -20}
 
+  vy += g;
+  y += vy
+  
   // 速くなりすぎないように制限
   vx = constrain(vx, -20, 20);
   vy = constrain(vy, -20, 20);
+  x = constrain(x, 0, windowWidth);
+  y = constrain(y, 0, groundY - 50)
 
   // 位置を更新
   x += vx;
@@ -38,5 +48,8 @@ function draw(){
 
   // キャラクターを描く
   fill(0);
+  
+  
+
   ellipse(x, y, size, size);
 }
